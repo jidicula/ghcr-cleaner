@@ -13,9 +13,15 @@ import (
 
 func main() {
 	token := flag.String("token", "", "GitHub personal API token with `read:packages` and `delete:packages` scope")
+	packageName := flag.String("packagename", "", "Name of package")
+
 	flag.Parse()
 	if *token == "" {
 		fmt.Fprintf(os.Stderr, "No token provided\n")
+		os.Exit(1)
+	}
+	if *token == "" {
+		fmt.Fprintf(os.Stderr, "No package name provided\n")
 		os.Exit(1)
 	}
 
@@ -34,7 +40,7 @@ func main() {
 			PerPage: 100,
 		},
 	}
-	packageList, resp, err := client.Users.PackageGetAllVersions(ctx, "", "container", "clang-format", opts)
+	packageList, resp, err := client.Users.PackageGetAllVersions(ctx, "", "container", *packageName, opts)
 	if err != nil {
 		fmt.Fprint(os.Stderr, err)
 	}
@@ -53,7 +59,7 @@ func main() {
 				PerPage: 100,
 			},
 		}
-		pageList, resp, err := client.Users.PackageGetAllVersions(ctx, "", "container", "clang-format", opts)
+		pageList, resp, err := client.Users.PackageGetAllVersions(ctx, "", "container", *packageName, opts)
 		errRespCheck(err, *resp)
 		for _, p := range pageList {
 			if len(p.GetMetadata().Container.Tags) == 0 {
