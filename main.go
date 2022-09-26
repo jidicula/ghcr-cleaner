@@ -41,8 +41,8 @@ func main() {
 		},
 	}
 	packageList, resp, err := client.Users.PackageGetAllVersions(ctx, "", "container", *packageName, opts)
-	if err != nil {
-		fmt.Fprint(os.Stderr, err)
+	if errRespCheck(err, *resp) {
+		os.Exit(2)
 	}
 	untaggedPackageIDs := make(map[int64]github.PackageVersion)
 	for _, p := range packageList {
