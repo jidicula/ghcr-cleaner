@@ -41,8 +41,8 @@ func main() {
 		},
 	}
 	packageList, resp, err := client.Users.PackageGetAllVersions(ctx, "", "container", *packageName, opts)
-	if err != nil {
-		fmt.Fprint(os.Stderr, err)
+	if errRespCheck(err, *resp) {
+		os.Exit(2)
 	}
 	untaggedPackageIDs := make(map[int64]github.PackageVersion)
 	for _, p := range packageList {
@@ -77,7 +77,7 @@ func main() {
 	for id, p := range untaggedPackageIDs {
 		if len(p.GetMetadata().Container.Tags) == 0 {
 			func(val string) {
-				resp, err := client.Users.PackageDeleteVersion(ctx, "", "container", "clang-format", id)
+				resp, err := client.Users.PackageDeleteVersion(ctx, "", "container", *packageName, id)
 				res := result{
 					sha265:  val,
 					success: errRespCheck(err, *resp),
