@@ -77,7 +77,7 @@ func main() {
 	for id, p := range untaggedPackageIDs {
 		if len(p.GetMetadata().Container.Tags) == 0 {
 			func(val string) {
-				resp, err := client.Users.PackageDeleteVersion(ctx, "", "container", "clang-format", id)
+				resp, err := client.Users.PackageDeleteVersion(ctx, "", "container", *packageName, id)
 				res := result{
 					sha265:  val,
 					success: errRespCheck(err, *resp),
