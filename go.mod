@@ -1,6 +1,6 @@
 module github.com/jidicula/ghcr-cleaner
 
-go 1.24.0
+go 1.25.3
 
 require (
 	github.com/google/go-github/v42 v42.0.0
