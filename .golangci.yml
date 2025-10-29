@@ -18,9 +18,6 @@ linters:
 formatters:
   enable:
     - goimports
-  settings:
-    goimports:
-      simplify: true
   exclusions:
     generated: lax
     paths:
