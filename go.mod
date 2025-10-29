@@ -1,11 +1,11 @@
 module github.com/jidicula/ghcr-cleaner
 
-go 1.21
+go 1.24.0
 
 require (
 	github.com/google/go-github/v42 v42.0.0
 	github.com/spf13/pflag v1.0.6
-	golang.org/x/oauth2 v0.25.0
+	golang.org/x/oauth2 v0.32.0
 )
 
 require (
